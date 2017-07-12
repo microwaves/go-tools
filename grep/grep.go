@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-func SearchString(re, str string) (o []string, err error) {
+func SearchString(re, str string) (matches []string, err error) {
 	regex, err := regexp.Compile(re)
 	if err != nil {
 		return
@@ -26,7 +26,7 @@ func SearchString(re, str string) (o []string, err error) {
 
 		s := string(buf)
 		if regex.MatchString(s) {
-			o = append(o, string(buf))
+			matches = append(matches, string(buf))
 		}
 	}
 
