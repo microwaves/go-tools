@@ -3,21 +3,25 @@ package kubectl
 import "os/exec"
 
 type Kubectl struct {
-	bin string
+	bin  string
 	args []string
 }
 
-func New(b string, a []string) *Kubectl {
-	return &Kubectl{bin: b, args: a}
+func NewKubectl(bin string, args []string) (kubectl *Kubectl, err error) {
+	if bin == "default" {
+		bin, err = WhereIs()
+	}
+	kubectl = &Kubectl{bin: bin, args: args}
+	return
+}
+
+func WhereIs() (kubectlBinPath string, err error) {
+	kubectlBinPath, err = exec.LookPath("kubectl")
+	return
 }
 
 func (k *Kubectl) Exec() (string, error) {
-	c := exec.Command(k.bin, k.args...)
-	o, err := c.Output()
-	return string(o), err
-}
-
-func WhereIs() (k string, err error) {
-	k, err = exec.LookPath("kubectl")
-	return
+	command := exec.Command(k.bin, k.args...)
+	commandOutput, err := command.Output()
+	return string(commandOutput), err
 }
