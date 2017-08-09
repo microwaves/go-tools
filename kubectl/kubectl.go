@@ -7,11 +7,9 @@ type Kubectl struct {
 	args []string
 }
 
-func NewKubectl(bin string, args []string) (kubectl *Kubectl, err error) {
-	if bin == "default" {
-		bin, err = WhereIs()
-	}
-	kubectl = &Kubectl{bin: bin, args: args}
+func NewKubectl(args []string) (kubectl *Kubectl, err error) {
+	kubectlBinPath, err := WhereIs()
+	kubectl = &Kubectl{bin: kubectlBinPath, args: args}
 	return
 }
 
