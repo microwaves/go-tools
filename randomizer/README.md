@@ -27,4 +27,4 @@ Where `n` is the amount of characters for the `string` output.
 
 ## Author
 
-@microwaves <sz@shitty.pizza>
+Stephano Zanzin <sz@shitty.pizza>
