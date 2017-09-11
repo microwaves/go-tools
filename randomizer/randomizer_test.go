@@ -15,7 +15,7 @@ func TestGenerateRandomStringLength(t *testing.T) {
 	}
 }
 
-func TestGenerateRandomStringOutputType(t *testing.T) {
+func TestGenerateRandomStringReturnType(t *testing.T) {
 	got := GenerateRandomString(10)
 	if reflect.TypeOf(got).Kind() != reflect.String {
 		t.Errorf("Expected 'string' got '%v'", got)
@@ -27,6 +27,32 @@ func TestGenerateRandomStringRandomness(t *testing.T) {
 	for n := 0; n <= 10000; n++ {
 		nStr := GenerateRandomString(10)
 		if s == nStr {
+			t.Error("Expected random 'string' got the same")
+		}
+	}
+}
+
+func TestGenerateUUIDReturnType(t *testing.T) {
+	got, err := GenerateUUID()
+	if err != nil {
+		t.Error("An error ocurred when generating a random UUID.")
+	}
+	if reflect.TypeOf(got).Kind() != reflect.String {
+		t.Errorf("Expected 'string' got '%v'", got)
+	}
+}
+
+func TestGenerateUUIDRandomness(t *testing.T) {
+	u, err := GenerateUUID()
+	if err != nil {
+		t.Error("An error ocurred when generating a random UUID.")
+	}
+	for n := 0; n <= 10000; n++ {
+		nStr, err := GenerateUUID()
+		if err != nil {
+			t.Error("An error ocurred when generating a random UUID.")
+		}
+		if u == nStr {
 			t.Error("Expected random 'string' got the same")
 		}
 	}
